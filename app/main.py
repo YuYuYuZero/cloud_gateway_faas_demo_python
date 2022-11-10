@@ -40,9 +40,11 @@ def network_test():
     # response.headers["r-logid"] = logid
 
     resp = requests.post(url, data=parms, headers=headers)
-    # print("resp:", resp)
-    # return "status:"+resp.status+"\nresp:"+resp.json()+"\n"
-    return resp.json()
+    logid = resp.headers["X-Tt-Logid"]
+    return "logid:"+logid+"\n" \
+           +"url:"+url+"\n" \
+           +"status_code:"+str(resp.status_code)+"\n"\
+           +"resp_json:"+str(resp.json())
 
 
 if __name__ == "__main__":

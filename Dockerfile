@@ -6,6 +6,12 @@ COPY . .
 RUN pip3 install -r requirements.txt
 RUN cp /opt/application/douyincloud_egress.crt /etc/ssl/certs/douyin_cloud_egress.crt
 
+# wget 安装证书
+ENV DOUYINCLOUD_CERT_PATH=/usr/local/share/ca-certificates/douyincloud_egress.crt
+RUN wget https://raw.githubusercontent.com/bytedance/douyincloud_cert/master/douyincloud_egress.crt -O $DOUYINCLOUD_CERT_PATH
+# 设置环境变量REQUESTS_CA_BUNDLE
+ENV REQUESTS_CA_BUNDLE=$DOUYINCLOUD_CERT_PATH
+
 ## debian/ubuntu
 #RUN apt install ca-certificates -y
 # alpine
